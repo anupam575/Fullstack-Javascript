@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Super Array Playground</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; background: #f7f7f7; }
+    input, select, button {
+      padding: 10px; margin: 5px; font-size: 16px;
+    }
+    .btn {
+      background: #ff4081; color: white;
+      border: none; border-radius: 6px; cursor: pointer;
+    }
+    .btn:hover { background: #c2185b; }
+    pre {
+      background: #fff; padding: 15px;
+      border-radius: 10px; margin-top: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .section { margin-bottom: 20px; }
+  </style>
+</head>
+<body>
+
+<h2>Super Array Playground: map, filter, reduce - Bhabhi 2.0</h2>
+
+<pre><strong>Original Array:</strong> <span id="originalArray"></span></pre>
+
+<div class="section">
+  <h3>map(): Transform Items</h3>
+  <select id="mapType">
+    <option value="multiply">Multiply by</option>
+    <option value="add">Add</option>
+    <option value="subtract">Subtract</option>
+  </select>
+  <input type="number" id="mapInput" value="2">
+  <button class="btn" onclick="applyMap()">Apply Map</button>
+</div>
+
+<div class="section">
+  <h3>filter(): Select Items</h3>
+  <select id="filterType">
+    <option value="greater">Greater than</option>
+    <option value="less">Less than</option>
+    <option value="equals">Equals</option>
+  </select>
+  <input type="number" id="filterInput" value="5">
+  <button class="btn" onclick="applyFilter()">Apply Filter</button>
+</div>
+
+<div class="section">
+  <h3>reduce(): Combine Items</h3>
+  <select id="reduceType">
+    <option value="sum">Sum</option>
+    <option value="product">Product</option>
+    <option value="max">Maximum</option>
+    <option value="min">Minimum</option>
+  </select>
+  <button class="btn" onclick="applyReduce()">Apply Reduce</button>
+</div>
+
+<button class="btn" onclick="resetArray()">Reset Array</button>
+
+<pre><strong>Result:</strong> <span id="resultOutput"></span></pre>
+
+<script>
+  let original = [2, 4, 6, 8, 10];
+  let arr = [...original];
+
+  function updateView(msg = "") {
+    document.getElementById("originalArray").innerText = JSON.stringify(arr);
+    document.getElementById("resultOutput").innerText = msg;
+  }
+
+  function applyMap() {
+    let type = document.getElementById("mapType").value;
+    let val = parseFloat(document.getElementById("mapInput").value);
+    let mapped = arr.map(x => {
+      if (type === "multiply") return x * val;
+      if (type === "add") return x + val;
+      if (type === "subtract") return x - val;
+    });
+    updateView("Mapped Array: " + JSON.stringify(mapped));
+  }
+
+  function applyFilter() {
+    let type = document.getElementById("filterType").value;
+    let val = parseFloat(document.getElementById("filterInput").value);
+    let filtered = arr.filter(x => {
+      if (type === "greater") return x > val;
+      if (type === "less") return x < val;
+      if (type === "equals") return x === val;
+    });
+    updateView("Filtered Array: " + JSON.stringify(filtered));
+  }
+
+  function applyReduce() {
+    let type = document.getElementById("reduceType").value;
+    let result;
+    if (type === "sum") result = arr.reduce((acc, x) => acc + x, 0);
+    if (type === "product") result = arr.reduce((acc, x) => acc * x, 1);
+    if (type === "max") result = arr.reduce((acc, x) => Math.max(acc, x));
+    if (type === "min") result = arr.reduce((acc, x) => Math.min(acc, x));
+    updateView("Reduce Result: " + result);
+  }
+
+  function resetArray() {
+    arr = [...original];
+    updateView("Array Reset to: " + JSON.stringify(arr));
+  }
+
+  // Initial view
+  updateView("Welcome to Super Array App!");
+</script>
+
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bhabhi Ji Push & Pop Garage</title>
+  <style>
+    body {
+      font-family: 'Comic Sans MS', cursive;
+      background: #ffe6f0;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    h1 {
+      color: #d63384;
+    }
+
+    #arrayDisplay {
+      font-size: 1.5rem;
+      margin: 20px 0;
+      padding: 10px;
+      border: 2px dashed #d63384;
+      background: #fff0f5;
+      border-radius: 10px;
+    }
+
+    button {
+      padding: 10px 20px;
+      margin: 5px;
+      border: none;
+      background: #d63384;
+      color: white;
+      border-radius: 10px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #a61e4d;
+    }
+
+    #output {
+      font-size: 1.2rem;
+      margin-top: 20px;
+      color: #660033;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>💄 Bhabhi Ji Push & Pop Garage 💅</h1>
+
+  <div id="arrayDisplay"></div>
+
+  <button onclick="bhabhiPush()">👠 Push (Add Item)</button>
+  <button onclick="bhabhiPop()">🧼 Pop (Remove Last)</button>
+
+  <div id="output"></div>
+
+  <script>
+    let bhabhiArray = ["💍 Ring", "👜 Purse", "👗 Dress"];
+
+    function updateDisplay() {
+      document.getElementById("arrayDisplay").textContent = "Bhabhi's Bag: [" + bhabhiArray.join(" | ") + "]";
+    }
+
+    function bhabhiPush() {
+      let item = prompt("Bhabhi ji, kya daalna hai bag mein?");
+      if (item) {
+        bhabhiArray.push(item);
+        updateDisplay();
+        document.getElementById("output").textContent = `👛 Push kiya: "${item}" bag mein daal diya!`;
+      } else {
+        document.getElementById("output").textContent = "⛔ Push cancel kiya!";
+      }
+    }
+
+    function bhabhiPop() {
+      if (bhabhiArray.length === 0) {
+        document.getElementById("output").textContent = "👜 Bag already khaali hai, kuch pop nahi ho sakta!";
+        return;
+      }
+      let removedItem = bhabhiArray.pop();
+      updateDisplay();
+      document.getElementById("output").textContent = `🧼 Pop kiya: "${removedItem}" nikaal diya bag se!`;
+    }
+
+    // Initial show
+    updateDisplay();
+  </script>
+
+</body>
+</html>
