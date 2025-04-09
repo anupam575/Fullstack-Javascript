@@ -1,0 +1,63 @@
+Encapsulation Object-Oriented Programming (OOP) की एक बेसिक और बहुत ज़रूरी विशेषता है। इसका मतलब होता है "डेटा और उससे जुड़े फ़ंक्शंस (methods) को एक यूनिट में बाँध देना"।
+
+इसे ऐसे समझो जैसे:
+
+जैसे कोई Bhabhi अपना सारा makeup, jewelry, और personal diary एक locker (box) में रखती हैं, ताकि कोई और उसे access ना कर सके – बस वही access कर सकें जब चाहें।
+
+बस उसी तरह Encapsulation में data (properties) और functions (methods) को एक class के अंदर lock कर दिया जाता है और उन्हें direct access नहीं करने दिया जाता।
+
+📦 उदाहरण (Example in JavaScript):
+javascript
+Copy
+Edit
+class Bhabhi {
+  #secretRecipe = "Rajma Chawal"; // private field
+
+  constructor(name) {
+    this.name = name;
+  }
+
+  // public method
+  showRecipe() {
+    console.log(`${this.name} की secret recipe है: ${this.#secretRecipe}`);
+  }
+
+  // private data को बदलने का controlled तरीका
+  updateRecipe(newRecipe) {
+    if (newRecipe.length > 0) {
+      this.#secretRecipe = newRecipe;
+    } else {
+      console.log("Invalid recipe!");
+    }
+  }
+}
+
+const bhabhi1 = new Bhabhi("Neha");
+bhabhi1.showRecipe();  // Neha की secret recipe है: Rajma Chawal
+
+bhabhi1.updateRecipe("Paneer Butter Masala");
+bhabhi1.showRecipe();  // Neha की secret recipe है: Paneer Butter Masala
+
+console.log(bhabhi1.#secretRecipe); // ❌ Error! Private field can't be accessed directly
+🧠 Encapsulation के फायदे (Benefits):
+✅ डेटा सिक्योरिटी
+डेटा को private बनाकर सीधे access से बचाया जाता है।
+
+✅ Control over data
+किसी भी डेटा को बदलने या देखने का तरीका हम खुद methods से define करते हैं।
+
+✅ Code Maintainability
+अगर अंदर का logic बदले भी, बाहर वाले code को कोई फर्क नहीं पड़ेगा।
+
+✅ Loose Coupling
+एक class के अंदर जो है, वो बाहर वालों को नहीं पता — इससे कम dependencies होती हैं।
+
+💡 कहां Use होता है Encapsulation?
+Area	Use of Encapsulation
+Banking App	Balance और transaction को hide करना
+Game Development	Player की health, power को private रखना
+Chat App	Messages को encrypt करके access control देना
+Online Shopping	Product details को encapsulate करना
+School Software	Student की personal details को सुरक्षित रखना
+🎉 Real-Life Analogy:
+जैसे कोई Tiffin box जो बंद होता है – अंदर क्या है ये बाहर से कोई नहीं जानता। लेकिन खाने के लिए हमें एक spoon (method) दिया जाता है। ठीक वैसा ही है Encapsulation!

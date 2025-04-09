@@ -1,0 +1,95 @@
+🔹 super() क्या है?
+super() एक special keyword है जो subclass (बच्ची क्लास) के अंदर parent class (मूल क्लास) के constructor या methods को call करने के लिए उपयोग होता है।
+
+✅ जब हम extends keyword का इस्तेमाल करके एक class को दूसरी class से inherit करते हैं, तो super() ज़रूरी हो जाता है।
+🔸 सिंटैक्स:
+javascript
+Copy
+Edit
+class Parent {
+  constructor() {
+    console.log("Parent constructor चला");
+  }
+
+  greet() {
+    console.log("Hello from Parent");
+  }
+}
+
+class Child extends Parent {
+  constructor() {
+    super(); // ✅ Parent का constructor call करता है
+    console.log("Child constructor चला");
+  }
+
+  greet() {
+    super.greet(); // ✅ Parent का greet() method call करता है
+    console.log("Hello from Child");
+  }
+}
+🧠 super() कहाँ और क्यों जरूरी है?
+1. Constructor के अंदर:
+जब आप किसी class को extends करते हैं और उसमें constructor बनाते हैं, तो आपको सबसे पहले super() को call करना जरूरी होता है। वरना error आएगा।
+
+javascript
+Copy
+Edit
+class A {
+  constructor() {
+    console.log("A का constructor");
+  }
+}
+
+class B extends A {
+  constructor() {
+    super(); // जरूरी है!
+    console.log("B का constructor");
+  }
+}
+
+new B();
+// Output:
+// A का constructor
+// B का constructor
+❌ अगर आप super() नहीं लिखेंगे:
+javascript
+Copy
+Edit
+class B extends A {
+  constructor() {
+    console.log("B का constructor"); // ❌ Error देगा
+  }
+}
+Error: Must call super() constructor before accessing 'this' in derived class constructor.
+
+2. Methods के अंदर:
+आप super.methodName() से parent class का कोई method भी call कर सकते हैं।
+
+javascript
+Copy
+Edit
+class Mummy {
+  cook() {
+    console.log("Mummy ने खाना बनाया 🍛");
+  }
+}
+
+class Bhabhi extends Mummy {
+  cook() {
+    super.cook(); // पहले mummy का method चलेगा
+    console.log("Bhabhi ने चटपटा तड़का लगाया 🌶️");
+  }
+}
+
+const bhabhi = new Bhabhi();
+bhabhi.cook();
+
+// Output:
+// Mummy ने खाना बनाया 🍛
+// Bhabhi ने चटपटा तड़का लगाया 🌶️
+📝 सारांश (Summary):
+Point	Description
+super()	Parent class का constructor call करता है
+super.method()	Parent class का method call करता है
+कहाँ इस्तेमाल करें?	जब class extends हो रही हो
+कब ज़रूरी है?	जब आप subclass में constructor बना रहे हों

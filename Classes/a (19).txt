@@ -1,0 +1,24 @@
+class Bhabhi {
+  constructor(name, age, favDish) {
+    this.name = name;
+    this.age = age;
+    this.favDish = favDish;
+  }
+
+  introduce() {
+    console.log(`Hello ji, मैं ${this.name} हूँ, मेरी उम्र ${this.age} है और मुझे ${this.favDish} खाना बहुत पसंद है!`);
+  }
+}
+
+// 👩‍❤️‍👩 नई भाभी बनाते हैं
+const bhabhi1 = new Bhabhi("Seema", 28, "Paneer Butter Masala");
+const bhabhi2 = new Bhabhi("Rita", 32, "Chole Bhature");
+
+// 💬 भाभियों से मिलिए
+bhabhi1.introduce();
+bhabhi2.introduce();
+  
+
+
+Hello ji, मैं Seema हूँ, मेरी उम्र 28 है और मुझे Paneer Butter Masala खाना बहुत पसंद है!
+Hello ji, मैं Rita हूँ, मेरी उम्र 32 है और मुझे Chole Bhature खाना बहुत पसंद है!

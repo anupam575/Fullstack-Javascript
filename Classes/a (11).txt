@@ -1,0 +1,87 @@
+जब भी किसी class का new object बनाया जाता है, तब constructor() automatically call होता है। ये object को initialize (set) करता है — जैसे उसका नाम, age, mood, favDish वगैरह।
+
+✅ पूरा Code: "Bhabhi Lifestyle Manager App"
+javascript
+Copy
+Edit
+class Bhabhi {
+  // 🔧 Constructor - हर नई भाभी के लिए values सेट करता है
+  constructor(name, age, favDish, mood) {
+    this.name = name;
+    this.age = age;
+    this.favDish = favDish;
+    this.mood = mood;
+    this.kittyPoints = 0;  // default value
+    console.log(`🎉 नई भाभी बनी: ${this.name}`);
+  }
+
+  // 🍽️ भाभी की पसंदीदा डिश बताओ
+  favFood() {
+    console.log(`${this.name} को ${this.favDish} खाना बहुत पसंद है 🍲`);
+  }
+
+  // 😄 मूड बताओ
+  showMood() {
+    console.log(`${this.name} का mood है: ${this.mood} 😍`);
+  }
+
+  // 🛍️ Shopping करने पर kitty points बढ़ें
+  goShopping(amount) {
+    let pointsEarned = Math.floor(amount / 100);
+    this.kittyPoints += pointsEarned;
+    this.mood = "Happy";
+    console.log(`${this.name} ने ₹${amount} की shopping की और ${pointsEarned} kitty points कमाए 🛍️`);
+  }
+
+  // 🎉 पार्टी mood बदलो
+  throwKittyParty() {
+    if (this.kittyPoints >= 5) {
+      this.mood = "Excited";
+      this.kittyPoints -= 5;
+      console.log(`${this.name} ने एक धमाकेदार kitty party दी! 🎊`);
+    } else {
+      console.log(`${this.name} के पास पर्याप्त kitty points नहीं हैं 😢`);
+    }
+  }
+}
+🧪 अब real use करके देखते हैं:
+javascript
+Copy
+Edit
+// ✅ दो नई भाभियाँ बनाते हैं
+const bhabhi1 = new Bhabhi("Pooja", 30, "Paneer Tikka", "Chill");
+const bhabhi2 = new Bhabhi("Sakshi", 28, "Chowmein", "Romantic");
+
+// 💬 उनके actions
+bhabhi1.favFood();        // Paneer Tikka
+bhabhi2.showMood();       // Romantic
+
+bhabhi1.goShopping(450);  // 4 points
+bhabhi1.goShopping(200);  // 2 points
+
+bhabhi1.throwKittyParty(); // 6 points → Party!
+
+bhabhi2.throwKittyParty(); // 0 points → Can't party
+🧾 Output:
+Copy
+Edit
+🎉 नई भाभी बनी: Pooja
+🎉 नई भाभी बनी: Sakshi
+Pooja को Paneer Tikka खाना बहुत पसंद है 🍲
+Sakshi का mood है: Romantic 😍
+Pooja ने ₹450 की shopping की और 4 kitty points कमाए 🛍️
+Pooja ने ₹200 की shopping की और 2 kitty points कमाए 🛍️
+Pooja ने एक धमाकेदार kitty party दी! 🎊
+Sakshi के पास पर्याप्त kitty points नहीं हैं 😢
+🧠 Breakdown:
+Concept	काम
+constructor()	जब new भाभी बनी, तो नाम, उम्र, mood set हो गया
+this.name	उसी object (भाभी) की property
+Methods	favFood(), showMood(), goShopping(), throwKittyParty()
+Default Value	this.kittyPoints = 0 constructor में ही set किया
+✅ तुमने क्या सीखा?
+constructor() हमेशा class के अंदर होता है
+
+इसमें object की initial settings होती हैं
+
+हर बार new Class() पर constructor call होता है

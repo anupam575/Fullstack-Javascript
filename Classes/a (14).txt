@@ -1,0 +1,195 @@
+static methods वो होते हैं जो class से directly call किए जाते हैं, ना कि class के object से।
+
+✅ Keywords:
+js
+Copy
+Edit
+static
+✅ Syntax:
+js
+Copy
+Edit
+class ClassName {
+  static methodName() {
+    // code
+  }
+}
+
+ClassName.methodName(); // ✅ सही तरीका
+const obj = new ClassName();
+obj.methodName(); // ❌ गलत, error देगा
+🔹 एक आसान Example (हिंदी में Comment के साथ)
+js
+Copy
+Edit
+class Calculator {
+  // static method सिर्फ class से call होता है
+  static add(x, y) {
+    return x + y;
+  }
+
+  static multiply(x, y) {
+    return x * y;
+  }
+
+  // static method को object से access नहीं कर सकते
+  greet() {
+    console.log("नमस्ते! यह Calculator क्लास है।");
+  }
+}
+
+// ✅ Static method को class से call करो
+console.log("जोड़: ", Calculator.add(5, 3));         // Output: 8
+console.log("गुणा: ", Calculator.multiply(4, 6));    // Output: 24
+
+// ❌ Object बनाकर static method call नहीं कर सकते
+const calc = new Calculator();
+// calc.add(5, 3);  // ❌ Error देगा
+
+// ✅ Non-static method को object से call करो
+calc.greet(); // Output: नमस्ते! यह Calculator क्लास है।
+🔹 Static Methods का Use कब करें?
+जब कोई ऐसा function हो जो object पर depend ना करता हो।
+
+जैसे utility functions, helper methods — जो class से directly जुड़े हों।
+
+🔹 Extra: Static method को this से कैसे handle करते हैं?
+js
+Copy
+Edit
+class Info {
+  static name = "Power Bhabhi";
+
+  static showName() {
+    console.log("नाम है:", this.name); // this यहाँ class को point करता है
+  }
+}
+
+Info.showName(); // Output: नाम है: Power Bhabhi
+🎁 याद रखने वाली बातें
+Feature	Static Method	Non-Static Method
+Call from class?	✅ हाँ	❌ नहीं
+Call from object?	❌ नहीं	✅ हाँ
+this किसको point करता है?	class को	object को
+अगर तुम चाहो तो मैं एक Interactive Bhabhi-style Static Method Playground बना सकता हूँ – जहाँ button दबाओ और static method चलाओ 😄
+बोलो बनाएं?
+
+
+
+
+
+
+
+You said:
+aur acche se explain karo
+
+
+ChatGPT said:
+बिलकुल! चलो अब static methods को और भी अच्छे से, एकदम मजेदार और धीरे-धीरे आसान भाषा में समझते हैं — जैसे कोई दोस्त समझा रहा हो। साथ में code + real-life example + हिन्दी analogies भी देंगे।
+
+🧠 Static Method क्या होता है?
+जब हम JavaScript में कोई class बनाते हैं, तो उसमें दो तरह के method हो सकते हैं:
+
+Normal method – जिसे हम object से call करते हैं।
+
+Static method – जिसे हम class के नाम से ही call करते हैं, object से नहीं।
+
+💡 आसान analogy (ज़िंदगी से जुड़ी)
+Imagine करो कि तुम्हारे घर में एक WashingMachine class है।
+
+जब तुम machine चालू करते हो, कपड़े डालते हो — ये सब काम object (machine) करता है।
+
+लेकिन कोई ऐसा function जो हर machine के लिए common हो, जैसे:
+
+“हर WashingMachine में 220V बिजली लगती है”
+
+तो यह बात किसी object से related नहीं है, यह class level की बात है।
+
+👉 इस तरह की बातें हम static method में डालते हैं।
+🔧 Static Method कैसे बनाते हैं?
+js
+Copy
+Edit
+class WashingMachine {
+  washClothes() {
+    console.log("कपड़े धो रहे हैं...");
+  }
+
+  static powerInfo() {
+    console.log("हर मशीन को 220V की बिजली चाहिए।");
+  }
+}
+📞 Method को कैसे call करें?
+js
+Copy
+Edit
+const lg = new WashingMachine();
+
+// 🔹 Non-static method (object से call)
+lg.washClothes(); // ✅ काम करेगा
+
+// 🔹 Static method (class से call करना होगा)
+WashingMachine.powerInfo(); // ✅ काम करेगा
+
+// ❌ object से static method नहीं चल सकती
+// lg.powerInfo(); // ❌ Error देगा
+🔍 Static Method क्यों काम की होती है?
+जब method का काम object से जुड़ा नहीं होता, सिर्फ class से related होता है।
+
+जब कोई logic हर object के लिए same हो।
+
+जब हम utility/helper functions बनाते हैं — जैसे calculation, conversion, validation।
+
+🛠️ एक दमदार Example: Calculator class
+js
+Copy
+Edit
+class Calculator {
+  // Static methods: class-level helper functions
+  static add(x, y) {
+    return x + y;
+  }
+
+  static subtract(x, y) {
+    return x - y;
+  }
+
+  static multiply(x, y) {
+    return x * y;
+  }
+
+  static divide(x, y) {
+    if (y === 0) {
+      return "Error: शून्य से भाग नहीं होता!";
+    }
+    return x / y;
+  }
+}
+
+// Call directly from class
+console.log("जोड़: ", Calculator.add(10, 5));        // 15
+console.log("घटाव: ", Calculator.subtract(10, 5));  // 5
+console.log("गुणा: ", Calculator.multiply(10, 5));  // 50
+console.log("भाग: ", Calculator.divide(10, 2));     // 5
+console.log("Error test: ", Calculator.divide(10, 0)); // Error message
+⚠️ Static methods में this क्या होता है?
+Static method में this का मतलब होता है class खुद।
+
+js
+Copy
+Edit
+class Demo {
+  static sayHi() {
+    console.log("Hi from", this.name);
+  }
+
+  static name = "Power Bhabhi 😎";
+}
+
+Demo.sayHi(); // Output: Hi from Power Bhabhi 😎
+🧾 Static vs Non-static – Difference Table (in Hindi):
+Feature	Static Method (क्लास से चलता है)	Non-Static Method (ऑब्जेक्ट से चलता है)
+Call कैसे करें?	ClassName.method()	object.method()
+this किसे refer करता है?	Class को	Object को
+Object से call किया जा सकता?	❌ नहीं	✅ हाँ
+Use कब करें?	जब logic object पर depend न हो	जब logic object-specific हो

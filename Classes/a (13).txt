@@ -1,0 +1,154 @@
+Getters और Setters JavaScript में class या object की properties को control करने का तरीका हैं।
+
+🔍 Getter: किसी property को "पढ़ने" (read) के लिए इस्तेमाल होता है।
+
+✏️ Setter: किसी property को "बदलने" (update/write) के लिए इस्तेमाल होता है।
+
+यह methods होते हैं जो property की तरह access किए जाते हैं — यानी बिना () लगाए!
+
+🎯 Syntax:
+javascript
+Copy
+Edit
+class Example {
+  constructor(name) {
+    this._name = name; // "_" से प्राइवेट जैसा convention
+  }
+
+  // Getter
+  get name() {
+    return this._name;
+  }
+
+  // Setter
+  set name(value) {
+    this._name = value.toUpperCase(); // जब value set हो, तो uppercase बना दो
+  }
+}
+
+const obj = new Example("bhabhi");
+console.log(obj.name); // 🔍 Getter call —> bhabhi
+
+obj.name = "sweetu";   // ✏️ Setter call
+console.log(obj.name); // SWEETU (setter ने uppercase बना दिया)
+✅ क्यों इस्तेमाल करें?
+Encapsulation (डेटा को छुपाना और कंट्रोल करना)
+
+Validation (गलत value ना आने देना)
+
+क्लीन कोड – Method जैसे behave करते हैं, लेकिन property की तरह दिखते हैं।
+
+🔥 एक मस्त Example: Bhabhi की Kitty Points System
+javascript
+Copy
+Edit
+class Bhabhi {
+  constructor() {
+    this._points = 0;
+  }
+
+  // Getter – points को पढ़ने के लिए
+  get kittyPoints() {
+    return `Bhabhi के पास ${this._points} points हैं 🌟`;
+  }
+
+  // Setter – points को set करने के लिए
+  set kittyPoints(value) {
+    if (value < 0) {
+      console.log("Arre! Negative points allowed nahi hai 😤");
+    } else {
+      this._points = value;
+      console.log(`Points update हो गए! 🎉`);
+    }
+  }
+}
+
+const sweetuBhabhi = new Bhabhi();
+
+console.log(sweetuBhabhi.kittyPoints);  // 🔍 Getter call
+
+sweetuBhabhi.kittyPoints = 50;         // ✏️ Setter call
+console.log(sweetuBhabhi.kittyPoints);  // फिर से getter
+
+sweetuBhabhi.kittyPoints = -20;        // ❌ Invalid
+🧾 Output:
+sql
+Copy
+Edit
+Bhabhi के पास 0 points हैं 🌟
+Points update हो गए! 🎉
+Bhabhi के पास 50 points हैं 🌟
+Arre! Negative points allowed nahi hai 😤
+🎁 Extra Tips:
+Best practice है कि हम अंदर के variables को _name, _points जैसा लिखें।
+
+Getter/Setter दोनों का नाम एक जैसा रख सकते हैं (जैसे name), वो automatically call हो जाएंगे।
+
+🔚 Summary Table:
+🔧 Feature	📋 Description
+get	Property को read करने के लिए method
+set	Property को update करने के लिए method
+Syntax	get propName() { ... }, set propName(value) { ... }
+Benefit	Data hiding, validation, formatting, clean syntax
+अगर आप चाहें तो मैं एक 🎮 "Getters/Setters Playground – Bhabhi Edition" interactive app बना सकता हूँ जिसमें आप click करके value set/change कर सकते हैं, और chat-style output दिखेगा! बनाऊँ? 😍
+
+You said:
+getter setter ko use he kyo kiya jata hai
+ChatGPT said:
+बहुत बढ़िया सवाल! 🙌
+JavaScript में Getter और Setter को "यूज़ ही क्यों किया जाता है?" — चलो इसे आसान और मजेदार अंदाज़ में समझते हैं, जैसे Bhabhi Ji समझा रही हों Kitty Party में 😄
+
+🧠 मुख्य कारण: Getter और Setter क्यूँ ज़रूरी हैं?
+✅ 1. डेटा को छुपाना (Encapsulation)
+ताकि object के अंदर की values सीधे access ना हो, बल्कि control होकर जाए।
+
+javascript
+Copy
+Edit
+this._salary = 50000; // अंदर रखा असली data
+Getter/Setter के ज़रिए इसे read/write करने देते हैं — पूरा कंट्रोल अपने हाथ में!
+
+✅ 2. Validation/Checking (गलत value को रोकना)
+javascript
+Copy
+Edit
+set age(value) {
+  if (value < 0) {
+    console.log("Umra negative nahi ho sakti re baba! 😅");
+  } else {
+    this._age = value;
+  }
+}
+➡️ बिना setter के, कोई भी कुछ भी assign कर सकता है (negative, string, etc.) ❌
+➡️ Setter से हम check लगा सकते हैं ✅
+
+✅ 3. Data को Format करना / Process करना
+javascript
+Copy
+Edit
+set name(value) {
+  this._name = value.toUpperCase(); // auto uppercase
+}
+➡️ जिससे user कुछ भी डाले, storage हमेशा एक format में हो ✅
+
+✅ 4. Method जैसा Behavior, लेकिन Property जैसा Look
+Getter/Setter methods की तरह behave करते हैं, लेकिन call ऐसे होते हैं जैसे property हो:
+
+javascript
+Copy
+Edit
+obj.name // instead of obj.getName()
+➡️ कोड क्लीन और readable रहता है।
+
+✅ 5. Future-proof Code
+अगर आज आप property को सीधे access कर रहे हो (obj.x = 5) — कल को आपको validation लगाना हो, तो पुराना कोड टूट जाएगा ❌
+लेकिन अगर getter/setter पहले से हो — future changes आसानी से हो जाएँगे ✅
+
+🤔 अगर getter/setter नहीं हों तो क्या दिक्कत होगी?
+❌ बिना Getter/Setter	✅ Getter/Setter के साथ
+कोई भी value set कर देगा	Validation possible
+Format बिगड़ सकता है	Auto formatting
+Data leakage	Data protection
+कोई भी बिना पूछे डेटा बदल सकता है	पूरी security 🛡️
+🎉 एक लाइन में जवाब:
+Getter और Setter का इस्तेमाल इसलिए किया जाता है ताकि object की properties को सुरक्षित, नियंत्रित और smart तरीके से access किया जा सके।
