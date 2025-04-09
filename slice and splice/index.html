@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Ultimate Slice & Splice Playground</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+      background-color: #f4f6f8;
+    }
+    .section {
+      background: #fff;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    input, button {
+      margin: 5px;
+      padding: 8px;
+      font-size: 16px;
+    }
+    pre {
+      background: #eee;
+      padding: 10px;
+      border-radius: 8px;
+    }
+    .btn {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+<h1>JavaScript Array Slice & Splice Playground</h1>
+
+<h3>Current Array:</h3>
+<pre id="currentArray">[]</pre>
+
+<div class="section">
+  <h2>Slice()</h2>
+  Start: <input type="number" id="sliceStart" value="1">
+  End: <input type="number" id="sliceEnd" value="4">
+  <button class="btn" onclick="performSlice()">Slice</button>
+</div>
+
+<div class="section">
+  <h2>Splice() - Delete</h2>
+  Start: <input type="number" id="spliceDelStart" value="1">
+  Count: <input type="number" id="spliceDelCount" value="2">
+  <button class="btn" onclick="performSpliceDelete()">Delete</button>
+</div>
+
+<div class="section">
+  <h2>Splice() - Replace</h2>
+  Start: <input type="number" id="spliceReplaceStart" value="2">
+  Count: <input type="number" id="spliceReplaceCount" value="2">
+  Items (comma-separated): <input type="text" id="spliceReplaceItems" value="X,Y">
+  <button class="btn" onclick="performSpliceReplace()">Replace</button>
+</div>
+
+<div class="section">
+  <h2>Splice() - Add Only</h2>
+  At Index: <input type="number" id="spliceAddIndex" value="2">
+  Items (comma-separated): <input type="text" id="spliceAddItems" value="Bhabhi,Chai">
+  <button class="btn" onclick="performSpliceAdd()">Add</button>
+</div>
+
+<div class="section">
+  <h2>Actions</h2>
+  <button class="btn" onclick="resetArray()">Reset Array</button>
+  <button class="btn" onclick="undoLast()">Undo Last</button>
+</div>
+
+<h3>Result:</h3>
+<pre id="output"></pre>
+
+<script>
+let originalArray = ["A", "B", "C", "D", "E"];
+let currentArray = [...originalArray];
+let history = [];
+
+function updateView(outputText = "") {
+  document.getElementById("currentArray").innerText = JSON.stringify(currentArray);
+  document.getElementById("output").innerText = outputText;
+}
+
+function saveHistory() {
+  history.push([...currentArray]);
+}
+
+function resetArray() {
+  currentArray = [...originalArray];
+  history = [];
+  updateView("Array reset.");
+}
+
+function undoLast() {
+  if (history.length > 0) {
+    currentArray = history.pop();
+    updateView("Last action undone.");
+  } else {
+    updateView("Nothing to undo.");
+  }
+}
+
+function performSlice() {
+  let start = parseInt(document.getElementById("sliceStart").value);
+  let end = parseInt(document.getElementById("sliceEnd").value);
+  let sliced = currentArray.slice(start, end);
+  updateView("Sliced result: " + JSON.stringify(sliced));
+}
+
+function performSpliceDelete() {
+  saveHistory();
+  let start = parseInt(document.getElementById("spliceDelStart").value);
+  let count = parseInt(document.getElementById("spliceDelCount").value);
+  let removed = currentArray.splice(start, count);
+  updateView("Deleted: " + JSON.stringify(removed));
+}
+
+function performSpliceReplace() {
+  saveHistory();
+  let start = parseInt(document.getElementById("spliceReplaceStart").value);
+  let count = parseInt(document.getElementById("spliceReplaceCount").value);
+  let items = document.getElementById("spliceReplaceItems").value.split(",");
+  currentArray.splice(start, count, ...items);
+  updateView("Replaced with: " + JSON.stringify(items));
+}
+
+function performSpliceAdd() {
+  saveHistory();
+  let index = parseInt(document.getElementById("spliceAddIndex").value);
+  let items = document.getElementById("spliceAddItems").value.split(",");
+  currentArray.splice(index, 0, ...items);
+  updateView("Added: " + JSON.stringify(items));
+}
+
+// Show initial state
+updateView("Welcome! Try out the buttons above.");
+</script>
+
+</body>
+</html>
